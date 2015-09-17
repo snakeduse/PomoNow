@@ -1,0 +1,30 @@
+{% extends "layouts/default.html" %}
+{% block title %}Вход в систему{% endblock %}
+{% block pageJs %}
+<script src="/js/controllers/login.js"></script>
+{% endblock %}
+{% block content %}
+<div ng-controller="LoginCtrl">
+  <div class="card-login mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__supporting-text">
+      <form ng-submit="auth()">
+        <div>
+          <div class="mdl-textfield mdl-js-textfield">
+            <label class="mdl-textfield__label" for="login">Логин</label>
+            <input class="mdl-textfield__input" type="text" name="login" ng-model="login" />
+          </div>
+          <div class="mdl-textfield mdl-js-textfield">
+            <label class="mdl-textfield__label" for="password">Пароль</label>
+            <input class="mdl-textfield__input" type="password" name="password" ng-model="password" />
+          </div>
+          <div>
+            <button type="submit" class="login-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+              Войти
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
