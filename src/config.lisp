@@ -23,10 +23,18 @@
   `(:databases ((:maindb :sqlite3 :database-name ":memory:"))))
 
 (defconfig |development|
-  '())
+    '(:debug T
+      :databases
+      ((:maindb :postgres
+        :database-name "pomonow"
+        :username "pomonow"
+        :password "123456"
+        :host "172.17.0.12"
+        :port 5432))
+      :secret-key "2ffbfb7e579631fe3511d2a2e1ff0d63a55a0e9524bd7c283b6361ceca3c65cf3eb5d42a9967a2b303da04280c5128cdb9b25960267c6c486571fcc47b44e90b"))
 
 (defconfig |production|
-  '())
+    '())
 
 (defconfig |test|
   '())
