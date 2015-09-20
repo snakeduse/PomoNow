@@ -31,15 +31,20 @@
 
 @route POST "/auth"
 (defun auth ()
-  (let ((email (get-body-parameter *request* "email"))
-        (password (get-body-parameter *request* "password")))
-    (if (user-exists-p email password)
-        (render-json '(:result "ok"))
+  (let* ((email (get-body-parameter *request* "email"))
+         (password (get-body-parameter *request* "password"))
+         (user (user-exists-p email password)))
+    (if user
+        (progn
+          (setf (gethash :auth-user *session*) user)
+          (render-json '(:result "ok")))
         (render-json '(:error "Login or password incorrect")))))
 
 @route GET "/app"
 (defun app ()
-  (render #P "app.html"))
+  (if (gethash :auth-user *session*)
+      (render #P "app.html")
+      (throw-code 403)))
 
 ;;
 ;; Error pages

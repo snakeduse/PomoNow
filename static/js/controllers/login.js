@@ -8,7 +8,8 @@ pomodoroApp.controller('LoginCtrl', ["$scope", "$http", function ($scope, $http,
         if(response.result){
           window.location = "app";
         } else {
-          console.log(response.error);
+          $scope.error = response.error;
+          console.log($scope.error);
         }
         $scope.isLoading = false;
       })
