@@ -31,9 +31,9 @@
 
 @route POST "/auth"
 (defun auth ()
-  (let ((name (get-body-parameter *request* "login"))
+  (let ((email (get-body-parameter *request* "email"))
         (password (get-body-parameter *request* "password")))
-    (if (and  (string= name "user") (string= password "password"))
+    (if (user-exists-p email password)
         (render-json '(:result "ok"))
         (render-json '(:error "Login or password incorrect")))))
 

@@ -3,7 +3,7 @@ pomodoroApp.controller('LoginCtrl', ["$scope", "$http", function ($scope, $http,
 
   $scope.auth = function(){
     $scope.isLoading = true;
-    $http.post('/auth',{login: $scope.login, password: $scope.password})
+    $http.post('/auth',{email: $scope.email, password: $scope.password})
       .success(function (response, status, headers, config) {
         if(response.result){
           window.location = "app";
