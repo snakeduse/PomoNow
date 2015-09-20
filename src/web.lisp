@@ -43,7 +43,8 @@
 @route GET "/app"
 (defun app ()
   (if (gethash :auth-user *session*)
-      (render #P "app.html")
+      (render #P "app.html"
+              '(:tasks (1 2 3 4 5 6 7 8 9 10 11 12 13 14 15)))
       (throw-code 403)))
 
 ;;

@@ -1,0 +1,10 @@
+@charset=UTF-8;
+
+.tasks{
+    margin: 5px auto;
+}
+
+.demo-card-square.mdl-card {
+  width: 320px;
+  height: 320px;
+}
