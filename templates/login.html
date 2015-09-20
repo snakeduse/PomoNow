@@ -1,10 +1,14 @@
 {% extends "layouts/default.html" %}
 {% block title %}Вход в систему{% endblock %}
+{% block css %}
+
+{% endblock %}
 {% block pageJs %}
 <script src="/js/controllers/login.js"></script>
 {% endblock %}
 {% block content %}
-<div ng-controller="LoginCtrl">
+<div ng-controller="LoginCtrl" class="">
+  <h2 class="logo">PomoNow</h2>
   <div class="card-login mdl-card mdl-shadow--2dp">
     <div class="mdl-card__supporting-text">
       <form ng-submit="auth()">

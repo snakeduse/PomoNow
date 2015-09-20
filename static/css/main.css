@@ -1,14 +1,22 @@
 @charset "UTF-8";
+@import "http://webfonts.ru/import/agilis.css";
+
+.logo{
+    font-family: 'Agilis';
+    text-align: center;
+    color: rgb(139,195,74);
+    font-weight: bold;
+}
 
 .card-login{
     text-align: center;
-    left: 40%;
+    left: 50%;
+    margin-left: -165px;
 
     position: relative;
-    top: 50%;
-    -webkit-transform: translateY(50%);
-    -ms-transform: translateY(50%);
-    transform: translateY(50%);
+    -webkit-transform: translateX(0%);
+    -ms-transform: translateX(0%);
+    transform: translateX(0%);
 }
 
 .login-button{
