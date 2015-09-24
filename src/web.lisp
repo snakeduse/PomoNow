@@ -4,9 +4,7 @@
         :caveman2
         :pomonow.config
         :pomonow.view
-        :pomonow.db
-        :datafly
-        :sxql)
+        :pomonow.model)
   (:export :*web*))
 (in-package :pomonow.web)
 
@@ -33,7 +31,7 @@
 (defun auth ()
   (let* ((email (get-body-parameter *request* "email"))
          (password (get-body-parameter *request* "password"))
-         (user (user-exists-p email password)))
+         (user (get-user email password)))
     (if user
         (progn
           (setf (gethash :auth-user *session*) user)
