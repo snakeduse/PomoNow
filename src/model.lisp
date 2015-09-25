@@ -14,16 +14,7 @@
            :card))
 (in-package :pomonow.model)
 
-(defmodel (user (:inflate created-at #'datetime-to-timestamp)
-                (:has-many (cards cards)
-                           (select :*
-                             (from :cards)
-                             (where
-                              (:in :id
-                                   (select :card_id
-                                     (from :cards_users)
-                                     (where (:= :user_id id))))))
-                           :as 'card))
+(defmodel (user (:inflate created-at #'datetime-to-timestamp))
   id
   login
   password
@@ -39,9 +30,21 @@
 (defun get-user (email password)
   "Check exists user by email and password"
   (with-connection (db)
-    (datafly:retrieve-one
+    (retrieve-one
      (select :*
        (from :users)
        (where (:and (:= :email email )
                     (:= :password (hash-password password)))))
-     :as 'pomonow.model:user)))
+     :as 'user)))
+
+(defun user-cards (user)
+  (with-connection (db)
+    (retrieve-all
+     (select :*
+       (from :cards)
+       (where
+        (:in :id
+             (select :card_id
+               (from :cards_users)
+               (where (:= :user_id (user-id user)))))))
+     :as 'card)))
