@@ -38,12 +38,20 @@
           (render-json '(:result "ok")))
         (render-json '(:error "Login or password incorrect")))))
 
+(defmacro with-auth-user (&body body)
+  `(if (gethash :auth-user *session*)
+       ,@body
+       (throw-code 403)))
+
 @route GET "/app"
 (defun app ()
-  (if (gethash :auth-user *session*)
-      (render #P "app.html"
-              '(:tasks (1 2 3 4 5 6 7 8 9 10 11 12 13 14 15)))
-      (throw-code 403)))
+  (with-auth-user
+    (render #P "app.html"
+            (list :cards (user-cards (gethash :auth-user *session*))))))
+
+@route GET "/cards/:id"
+(defun get-card-tasks (&key id)
+  )
 
 ;;
 ;; Error pages

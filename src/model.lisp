@@ -10,8 +10,7 @@
                 :hash-password)
   (:export :user
            :user-cards
-           :get-user
-           :card))
+           :get-user))
 (in-package :pomonow.model)
 
 (defmodel (user (:inflate created-at #'datetime-to-timestamp))
@@ -19,13 +18,6 @@
   login
   password
   created-at)
-
-(defmodel (card (:inflate created-at #'datetime-to-timestamp
-                          updated-at #'datetime-to-timestamp))
-  id
-  title
-  created-at
-  updated-at)
 
 (defun get-user (email password)
   "Check exists user by email and password"
@@ -46,5 +38,4 @@
         (:in :id
              (select :card_id
                (from :cards_users)
-               (where (:= :user_id (user-id user)))))))
-     :as 'card)))
+               (where (:= :user_id (user-id user))))))))))
