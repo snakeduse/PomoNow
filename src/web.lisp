@@ -46,7 +46,7 @@
 @route GET "/app"
 (defun app ()
   (with-auth-user
-    (render #P "app.html"
+    (render #P "cards.html"
             (list :cards (user-cards (gethash :auth-user *session*))))))
 
 @route GET "/cards/:id"

@@ -1,5 +1,4 @@
 {% extends "layouts/default.html" %}
-{% block title %}Помидорка!{% endblock %}
 {% block css %}
 <link rel="stylesheet" href="/css/app.css" />
 {% endblock %}
@@ -32,22 +31,7 @@
   </div>
   <main class="mdl-layout__content">
     <div class="page-content">
-      <div class="mdl-grid tasks-container"></div>
-      {% for card in cards %}
-      <div class="demo-card-square mdl-card mdl-shadow--2dp tasks">
-          <div class="mdl-card__title mdl-card--expand">
-            <h2 class="mdl-card__title-text">{{card.title}}</h2>
-          </div>
-          <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/cards/{{card.id}}">
-              View Tasks
-            </a>
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-              In archive
-            </a>
-          </div>
-        </div>
-      {% endfor %}
+      {% block app_content %}{% endblock %}
     </div>
   </main>
 </div>
