@@ -11,7 +11,8 @@
   (:export :user
            :user-cards
            :get-user
-           :card-tasks))
+           :card-tasks
+           :get-card))
 (in-package :pomonow.model)
 
 (defmodel (user (:inflate created-at #'datetime-to-timestamp))
@@ -53,3 +54,8 @@ key-value - значения поля, по которому сравнивае�
 
 (defun card-tasks (card-id)
   (select-from-many :tasks :cards_tasks :task_id :card_id card-id))
+
+(defun get-card (card-id)
+  (with-connection (db)
+    (retrieve-one
+     (select :* (from :cards) (where (:= :id card-id))))))
