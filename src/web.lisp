@@ -51,7 +51,10 @@
 
 @route GET "/cards/:id"
 (defun get-card-tasks (&key id)
-  )
+  (with-auth-user
+    (render #P "card.html"
+            (list :card (get-card id)
+                  :tasks (card-tasks id)))))
 
 ;;
 ;; Error pages
