@@ -10,7 +10,8 @@
                 :hash-password)
   (:export :user
            :user-cards
-           :get-user))
+           :get-user
+           :card-tasks))
 (in-package :pomonow.model)
 
 (defmodel (user (:inflate created-at #'datetime-to-timestamp))
@@ -29,13 +30,26 @@
                     (:= :password (hash-password password)))))
      :as 'user)))
 
-(defun user-cards (user)
+(defun select-from-many (table-data table-reference key-reference key-field key-value)
+  "Извлечение данных для таблиц в отношении многие ко многим.
+table-data - таблица, из которой извлекаем данные
+table-reference - таблица связей
+key-reference - поле, извлекаемое из таблицы связей
+key-field - поле, по которому сравниваем значение в таблице связей
+key-value - значения поля, по которому сравниваем значение в таблице связей
+"
   (with-connection (db)
     (retrieve-all
      (select :*
-       (from :cards)
+       (from table-data)
        (where
         (:in :id
-             (select :card_id
-               (from :cards_users)
-               (where (:= :user_id (user-id user))))))))))
+             (select key-reference
+               (from table-reference)
+               (where (:= key-field key-value)))))))))
+
+(defun user-cards (user)
+  (select-from-many :cards :cards_users :card_id :user_id (user-id user)))
+
+(defun card-tasks (card-id)
+  (select-from-many :tasks :cards_tasks :task_id :card_id card-id))
