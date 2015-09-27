@@ -8,11 +8,18 @@
                 :db)
   (:import-from :pomonow.utils
                 :hash-password)
-  (:export :user
-           :user-cards
-           :get-user
-           :card-tasks
-           :get-card))
+  (:export
+   ;; users
+   :user
+   :user-cards
+   :get-user
+
+   ;; cards
+   :card
+   :card-tasks
+   :get-card
+   :insert-card
+   :make-card))
 (in-package :pomonow.model)
 
 (defmodel (user (:inflate created-at #'datetime-to-timestamp))
@@ -20,6 +27,13 @@
   login
   password
   created-at)
+
+(defmodel (card (:inflate created-at #'datetime-to-timestamp
+                          updated-at #'datetime-to-timestamp))
+  id
+  title
+  created-at
+  updated-at)
 
 (defun get-user (email password)
   "Check exists user by email and password"
@@ -52,6 +66,9 @@ key-value - значения поля, по которому сравнивае�
 (defun user-cards (user)
   (select-from-many :cards :cards_users :card_id :user_id (user-id user)))
 
+
+;; cards
+
 (defun card-tasks (card-id)
   (select-from-many :tasks :cards_tasks :task_id :card_id card-id))
 
@@ -59,3 +76,9 @@ key-value - значения поля, по которому сравнивае�
   (with-connection (db)
     (retrieve-one
      (select :* (from :cards) (where (:= :id card-id))))))
+
+(defun insert-card (title)
+  (with-connection (db)
+    (execute
+     (insert-into :cards
+       (set= :title title)))))
