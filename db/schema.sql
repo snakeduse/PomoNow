@@ -3,13 +3,14 @@ CREATE TABLE users (
         id SERIAL PRIMARY KEY,
         email VARCHAR(255) NOT NULL,
         password VARCHAR(255) NOT NULL,
-        created_at TIMESTAMP NOT NULL DEFAULT now());
+        created_at TIMESTAMP NOT NULL DEFAULT now(),
+        updated_at TIMESTAMP);
 
 -- таблица с карточками
 CREATE TABLE cards (
         id SERIAL PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
-        created_at TIMESTAMP NOT NULL,
+        created_at TIMESTAMP NOT NULL DEFAULT now(),
         updated_at TIMESTAMP);
 
 -- таблица связей пользователя с карточками
