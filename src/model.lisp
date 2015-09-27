@@ -35,15 +35,6 @@
   created-at
   updated-at)
 
-(defun get-user (email password)
-  "Check exists user by email and password"
-  (with-connection (db)
-    (retrieve-one
-     (select :*
-       (from :users)
-       (where (:and (:= :email email )
-                    (:= :password (hash-password password)))))
-     :as 'user)))
 
 (defun select-from-many (table-data table-reference key-reference key-field key-value)
   "Извлечение данных для таблиц в отношении многие ко многим.
@@ -62,6 +53,19 @@ key-value - значения поля, по которому сравнивае�
              (select key-reference
                (from table-reference)
                (where (:= key-field key-value)))))))))
+
+
+;; users
+
+(defun get-user (email password)
+  "Check exists user by email and password"
+  (with-connection (db)
+    (retrieve-one
+     (select :*
+       (from :users)
+       (where (:and (:= :email email )
+                    (:= :password (hash-password password)))))
+     :as 'user)))
 
 (defun user-cards (user)
   (select-from-many :cards :cards_users :card_id :user_id (user-id user)))
