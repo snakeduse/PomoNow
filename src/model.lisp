@@ -16,7 +16,6 @@
 
    ;; cards
    :card
-   :get-card-tasks
    :get-card
    :insert-card
    :make-card
@@ -24,10 +23,13 @@
    ;; tasks
    :insert-task
    :binding-task-to-card
+   :get-tasks-card
+   :make-task
 
    ;; comments
    :insert-comment
-   :get-card-comments))
+   :get-card-comments
+   :make-comment))
 (in-package :pomonow.model)
 
 (defmodel (user (:inflate created-at #'datetime-to-timestamp))
@@ -98,9 +100,6 @@ key-value - значения поля, по которому сравнивае�
 
 
 ;; cards
-(defun get-card-tasks (card-id)
-  (select-from-many :tasks :cards_tasks :task_id :card_id card-id))
-
 (defun get-card (card-id)
   (with-connection (db)
     (retrieve-one
@@ -129,6 +128,9 @@ key-value - значения поля, по которому сравнивае�
      (insert-into :cards-tasks
        (set= :card-id card-id
              :task-id task-id)))))
+
+(defun get-tasks-card (card-id)
+  (select-from-many :tasks :cards_tasks :task_id :card_id card-id))
 
 ;;comments
 (defun insert-comment (comment)
