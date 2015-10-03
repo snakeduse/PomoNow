@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>{% block title %}{% endblock %}</title>
-  <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css">
-   <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.light_green-deep_orange.min.css" />
-   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-   {% block css %}{% endblock %}
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.light_green-deep_orange.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {% block css %}{% endblock %}
 
-   <script src="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
-   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-   <script src="/js/app.js"></script>
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
+    <script src="/js/app.js"></script>
 
-   {% block pageJs %}{% endblock %}
-</head>
-<body ng-app="pomodoroApp">
-  {% block content %}{% endblock %}
-</body>
+    {% block js %}{% endblock %}
+  </head>
+  <body ng-app="pomodoroApp">
+    {% block content %}{% endblock %}
+  </body>
 </html>
